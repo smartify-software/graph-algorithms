@@ -10,10 +10,9 @@ type PrettyPrintGraphvizFile struct {
 	PrettyPintGraphviz PrettyPintGraphviz
 }
 
-func (f PrettyPrintGraphvizFile) PrettyPrint(graph Graph) {
-	graphviz := PrettyPintGraphviz{Graph: graph}
-	graphviz.PrettyPrint()
-
+func (f PrettyPrintGraphvizFile) PrettyPrint() string {
+	graphviz := PrettyPintGraphviz{Graph: f.PrettyPintGraphviz.Graph}
+	return graphviz.PrettyPrint()
 }
 
 func (f PrettyPrintGraphvizFile) Write(outputFilename string) error {
@@ -29,7 +28,7 @@ func (f PrettyPrintGraphvizFile) Write(outputFilename string) error {
 	}(file)
 
 	writer := bufio.NewWriter(file)
-	_, err = writer.WriteString(f.PrettyPintGraphviz.PrettyPrint())
+	_, err = writer.WriteString(f.PrettyPrint())
 	if err != nil {
 		return err
 	}
